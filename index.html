@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YAIDS — Youth AI Impact & Intervention System | Team 12 | SLU MRP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ── Reset & Variables ──────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0D0D0D;
+  --paper:#FAF9F6;
+  --cream:#F2EFE8;
+  --navy:#0F2240;
+  --blue:#1A3F6F;
+  --mid:#2563A8;
+  --sky:#4A90D9;
+  --gold:#C8952A;
+  --red:#C0392B;
+  --green:#1A6B3A;
+  --border:#D4CFC4;
+  --shadow:rgba(15,34,64,0.12);
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+  --mono:'DM Mono',monospace;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink);line-height:1.6;overflow-x:hidden}
+
+/* ── NAV ────────────────────────────────────────────────────── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(15,34,64,0.97);
+  backdrop-filter:blur(12px);
+  border-bottom:2px solid var(--gold);
+  padding:0 2rem;
+  display:flex;align-items:center;justify-content:space-between;
+  height:56px;
+}
+.nav-brand{font-family:var(--serif);color:#fff;font-size:1.1rem;font-weight:700;letter-spacing:.02em}
+.nav-brand span{color:var(--gold)}
+.nav-links{display:flex;gap:0;list-style:none}
+.nav-links a{
+  color:rgba(255,255,255,0.72);font-size:.78rem;font-weight:500;
+  text-decoration:none;padding:.4rem .8rem;border-radius:4px;
+  transition:all .2s;letter-spacing:.04em;text-transform:uppercase;
+}
+.nav-links a:hover{color:#fff;background:rgba(255,255,255,.08)}
+
+/* ── HERO ───────────────────────────────────────────────────── */
+.hero{
+  min-height:100vh;
+  background:linear-gradient(160deg,var(--navy) 0%,#1a3a6e 50%,#0a1a30 100%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:6rem 2rem 4rem;
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(42,99,168,.35) 0%,transparent 70%);
+  pointer-events:none;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:.5rem;
+  background:rgba(200,149,42,.15);border:1px solid rgba(200,149,42,.4);
+  color:var(--gold);font-size:.75rem;font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;padding:.35rem 1rem;border-radius:999px;
+  margin-bottom:2rem;animation:fadeUp .8s ease both;
+}
+.hero-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--gold);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+.hero h1{
+  font-family:var(--serif);font-size:clamp(2.8rem,7vw,5.5rem);
+  font-weight:900;color:#fff;line-height:1.05;
+  animation:fadeUp .9s .1s ease both;
+  max-width:900px;
+}
+.hero h1 em{color:var(--gold);font-style:normal}
+.hero-sub{
+  font-size:clamp(1rem,2.2vw,1.25rem);color:rgba(255,255,255,.65);
+  max-width:620px;margin:1.5rem auto 0;
+  animation:fadeUp 1s .2s ease both;
+}
+.hero-stats{
+  display:flex;gap:3rem;margin:3.5rem auto 0;flex-wrap:wrap;justify-content:center;
+  animation:fadeUp 1.1s .35s ease both;
+}
+.stat{text-align:center}
+.stat-num{font-family:var(--serif);font-size:2.8rem;font-weight:900;color:var(--gold);line-height:1}
+.stat-label{font-size:.72rem;color:rgba(255,255,255,.5);letter-spacing:.08em;text-transform:uppercase;margin-top:.3rem}
+.hero-cta{
+  display:flex;gap:1rem;margin-top:3rem;flex-wrap:wrap;justify-content:center;
+  animation:fadeUp 1.2s .45s ease both;
+}
+.btn{
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:.75rem 1.75rem;border-radius:6px;font-weight:600;font-size:.9rem;
+  text-decoration:none;transition:all .2s;letter-spacing:.02em;border:none;cursor:pointer;
+}
+.btn-primary{background:var(--gold);color:var(--navy)}
+.btn-primary:hover{background:#d9a030;transform:translateY(-2px);box-shadow:0 8px 24px rgba(200,149,42,.35)}
+.btn-outline{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.35)}
+.btn-outline:hover{border-color:#fff;background:rgba(255,255,255,.08);transform:translateY(-2px)}
+.hero-scroll{
+  position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);
+  color:rgba(255,255,255,.35);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;
+  display:flex;flex-direction:column;align-items:center;gap:.5rem;animation:fadeUp 1.3s .6s ease both;
+}
+.scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,rgba(255,255,255,.3),transparent)}
+
+/* ── SECTION LAYOUT ─────────────────────────────────────────── */
+section{padding:5rem 2rem}
+.container{max-width:1100px;margin:0 auto}
+.section-label{
+  font-size:.72rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--mid);margin-bottom:.75rem;
+}
+.section-title{
+  font-family:var(--serif);font-size:clamp(1.8rem,4vw,3rem);
+  font-weight:900;color:var(--navy);line-height:1.1;margin-bottom:1rem;
+}
+.section-lead{font-size:1.05rem;color:#444;max-width:680px;line-height:1.75}
+.divider{width:48px;height:3px;background:var(--gold);margin:1.5rem 0 2rem;border-radius:2px}
+
+/* ── PROBLEM ────────────────────────────────────────────────── */
+#problem{background:var(--cream)}
+.problem-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;margin-top:3rem}
+.problem-statement{
+  background:var(--navy);color:#fff;border-radius:12px;padding:2rem;
+  border-left:4px solid var(--gold);
+}
+.problem-statement h3{font-family:var(--serif);font-size:1.1rem;color:var(--gold);margin-bottom:1rem}
+.problem-statement p{color:rgba(255,255,255,.8);font-size:.95rem;line-height:1.8}
+.stakeholder-list{display:flex;flex-direction:column;gap:.75rem}
+.stakeholder{
+  display:flex;align-items:flex-start;gap:1rem;
+  background:#fff;border:1px solid var(--border);border-radius:8px;padding:1rem 1.2rem;
+  transition:box-shadow .2s;
+}
+.stakeholder:hover{box-shadow:0 4px 16px var(--shadow)}
+.s-icon{font-size:1.4rem;flex-shrink:0;margin-top:.1rem}
+.s-name{font-weight:600;font-size:.9rem;color:var(--navy);margin-bottom:.2rem}
+.s-pain{font-size:.82rem;color:#666;line-height:1.5}
+.crisis-banner{
+  background:linear-gradient(135deg,#7B1C1C,#C0392B);
+  border-radius:12px;padding:1.75rem 2rem;margin-top:2rem;
+  display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;
+}
+.crisis-banner .big-num{font-family:var(--serif);font-size:3.5rem;font-weight:900;color:#fff;line-height:1}
+.crisis-banner .crisis-text{color:rgba(255,255,255,.9);font-size:.95rem}
+.crisis-banner .crisis-text strong{color:#fff;font-size:1.1rem;display:block;margin-bottom:.25rem}
+
+/* ── DATA ───────────────────────────────────────────────────── */
+#data{background:#fff}
+.data-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2.5rem}
+.data-card{
+  background:var(--cream);border:1px solid var(--border);border-radius:10px;
+  padding:1.5rem;transition:all .2s;
+}
+.data-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px var(--shadow);border-color:var(--sky)}
+.dc-label{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);margin-bottom:.5rem;font-weight:600}
+.dc-val{font-family:var(--serif);font-size:2rem;font-weight:900;color:var(--navy);margin-bottom:.25rem}
+.dc-desc{font-size:.82rem;color:#666;line-height:1.5}
+.rules-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:2rem}
+.rule-item{
+  background:var(--paper);border:1px solid var(--border);border-radius:8px;
+  padding:1rem 1.25rem;display:flex;gap:.75rem;align-items:flex-start;
+}
+.rule-var{font-family:var(--mono);font-size:.78rem;color:var(--mid);font-weight:500;
+  background:rgba(37,99,168,.08);padding:.15rem .5rem;border-radius:4px;
+  white-space:nowrap;flex-shrink:0;margin-top:.15rem}
+.rule-desc{font-size:.82rem;color:#555;line-height:1.5}
+.table-section{margin-top:3rem}
+.table-section h3{font-family:var(--serif);font-size:1.3rem;color:var(--navy);margin-bottom:1rem}
+.var-table{width:100%;border-collapse:collapse;font-size:.82rem}
+.var-table th{background:var(--navy);color:#fff;padding:.6rem 1rem;text-align:left;font-weight:600;font-size:.75rem;letter-spacing:.05em}
+.var-table td{padding:.55rem 1rem;border-bottom:1px solid var(--border);vertical-align:top}
+.var-table tr:nth-child(even) td{background:var(--cream)}
+.var-table tr:hover td{background:rgba(37,99,168,.05)}
+.domain-badge{
+  display:inline-block;font-size:.65rem;padding:.15rem .5rem;border-radius:999px;
+  font-weight:600;letter-spacing:.05em;text-transform:uppercase;
+}
+.d-profile{background:#EEF4FF;color:#1A3F6F}
+.d-ai{background:#FFF4E5;color:#8B5E00}
+.d-cog{background:#F0FFF4;color:#1A6B3A}
+.d-health{background:#FFF0F0;color:#8B1C1C}
+
+/* ── DASHBOARD ──────────────────────────────────────────────── */
+#dashboard{background:var(--cream)}
+.db-frame{
+  border-radius:12px;overflow:hidden;
+  box-shadow:0 24px 64px rgba(0,0,0,.15);
+  border:1px solid var(--border);margin:2rem 0;
+}
+.db-frame iframe{width:100%;height:600px;display:block;border:none}
+.db-frame-label{
+  background:var(--navy);padding:.75rem 1.25rem;
+  display:flex;align-items:center;gap:.75rem;
+}
+.db-dot{width:10px;height:10px;border-radius:50%;background:var(--gold)}
+.db-title{color:rgba(255,255,255,.8);font-size:.8rem;font-family:var(--mono)}
+.insights-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:1.5rem}
+.insight-card{
+  background:#fff;border:1px solid var(--border);border-radius:10px;
+  padding:1.25rem;border-top:3px solid var(--mid);
+}
+.insight-card.red-top{border-top-color:var(--red)}
+.insight-card.gold-top{border-top-color:var(--gold)}
+.insight-card.green-top{border-top-color:var(--green)}
+.insight-num{font-family:var(--serif);font-size:1.9rem;font-weight:900;color:var(--navy);margin-bottom:.3rem}
+.insight-num.danger{color:var(--red)}
+.insight-num.warn{color:var(--gold)}
+.insight-label{font-weight:600;font-size:.85rem;color:var(--navy);margin-bottom:.4rem}
+.insight-desc{font-size:.8rem;color:#666;line-height:1.55}
+
+/* ── SOLUTION ───────────────────────────────────────────────── */
+#solution{background:#fff}
+.sol-tabs{display:flex;gap:0;border-bottom:2px solid var(--border);margin:2rem 0 0}
+.sol-tab{
+  padding:.75rem 1.5rem;font-size:.85rem;font-weight:600;cursor:pointer;
+  border-bottom:2px solid transparent;margin-bottom:-2px;color:#777;
+  transition:all .2s;background:none;border-top:none;border-left:none;border-right:none;
+}
+.sol-tab.active{color:var(--navy);border-bottom-color:var(--gold)}
+.sol-tab:hover:not(.active){color:var(--navy)}
+.sol-panel{display:none;padding:2rem 0}
+.sol-panel.active{display:block}
+.feature-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.25rem}
+.feature-card{
+  background:var(--cream);border:1px solid var(--border);border-radius:10px;
+  padding:1.5rem;display:flex;gap:1rem;align-items:flex-start;transition:all .2s;
+}
+.feature-card:hover{border-color:var(--mid);box-shadow:0 8px 24px var(--shadow)}
+.f-icon{
+  width:44px;height:44px;border-radius:10px;background:var(--navy);
+  display:flex;align-items:center;justify-content:center;font-size:1.3rem;
+  flex-shrink:0;
+}
+.f-name{font-weight:700;font-size:.95rem;color:var(--navy);margin-bottom:.35rem}
+.f-desc{font-size:.82rem;color:#555;line-height:1.6}
+.kpi-table-wrap{overflow-x:auto;margin-top:1.5rem}
+.kpi-table{width:100%;border-collapse:collapse;font-size:.83rem}
+.kpi-table th{background:var(--navy);color:#fff;padding:.7rem 1rem;text-align:left;font-size:.75rem;font-weight:600;letter-spacing:.05em}
+.kpi-table td{padding:.65rem 1rem;border-bottom:1px solid var(--border)}
+.kpi-table tr:nth-child(even) td{background:var(--cream)}
+.kpi-tag{
+  display:inline-block;font-size:.68rem;padding:.15rem .55rem;border-radius:4px;
+  font-weight:600;background:rgba(37,99,168,.1);color:var(--mid);font-family:var(--mono);
+}
+.ea-wrap{
+  background:var(--paper);border:1px solid var(--border);border-radius:12px;
+  overflow:hidden;margin-top:1.5rem;
+}
+.ea-wrap img{width:100%;display:block}
+.ea-caption{
+  padding:1rem 1.5rem;background:var(--navy);
+  color:rgba(255,255,255,.7);font-size:.8rem;font-family:var(--mono);text-align:center;
+}
+.tech-pills{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.5rem}
+.tech-pill{
+  background:var(--paper);border:1px solid var(--border);
+  padding:.35rem .9rem;border-radius:999px;font-size:.78rem;font-weight:500;color:var(--navy);
+}
+
+/* ── COMPARISON ─────────────────────────────────────────────── */
+#comparison{background:var(--cream)}
+.compare-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:2rem}
+.compare-card{
+  background:#fff;border:1px solid var(--border);border-radius:10px;
+  overflow:hidden;
+}
+.cc-header{background:var(--navy);padding:.75rem 1.25rem}
+.cc-metric{font-weight:700;font-size:.9rem;color:#fff}
+.cc-body{padding:1.25rem}
+.cc-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:.65rem}
+.cc-label{font-size:.75rem;color:#888;font-weight:500}
+.cc-before{font-family:var(--serif);font-size:1.4rem;font-weight:700;color:var(--red)}
+.cc-after{font-family:var(--serif);font-size:1.4rem;font-weight:700;color:var(--green)}
+.cc-arrow{color:#aaa;font-size:1.2rem}
+.cc-improvement{
+  display:inline-flex;align-items:center;gap:.3rem;
+  background:rgba(26,107,58,.1);color:var(--green);
+  font-size:.75rem;font-weight:700;padding:.25rem .65rem;border-radius:999px;margin-top:.5rem;
+}
+.cc-source{font-size:.7rem;color:#aaa;margin-top:.5rem}
+.compare-bar{margin:2rem 0 0}
+.bar-row{display:flex;align-items:center;gap:1rem;margin-bottom:1.25rem}
+.bar-metric{font-size:.82rem;font-weight:600;color:var(--navy);width:180px;flex-shrink:0}
+.bar-track{flex:1;background:var(--border);border-radius:999px;height:10px;position:relative;overflow:visible}
+.bar-before{height:10px;border-radius:999px;background:var(--red);position:absolute;top:0;left:0;transition:width 1s ease}
+.bar-after{height:10px;border-radius:999px;background:var(--green);position:absolute;top:0;left:0;opacity:.7;transition:width 1.2s .2s ease}
+.bar-vals{display:flex;gap:.5rem;align-items:center;width:160px;flex-shrink:0;justify-content:flex-end}
+.bv-before{font-size:.8rem;color:var(--red);font-weight:600}
+.bv-after{font-size:.8rem;color:var(--green);font-weight:600}
+.bar-legend{display:flex;gap:1.5rem;margin-bottom:1rem}
+.legend-item{display:flex;align-items:center;gap:.5rem;font-size:.78rem;color:#555}
+.legend-dot{width:10px;height:10px;border-radius:50%}
+
+/* ── TEAM ───────────────────────────────────────────────────── */
+#team{background:#fff}
+.team-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1.25rem;margin-top:2rem}
+.team-card{
+  background:var(--cream);border:1px solid var(--border);border-radius:12px;
+  padding:1.5rem 1rem;text-align:center;transition:all .25s;
+}
+.team-card:hover{transform:translateY(-6px);box-shadow:0 16px 40px var(--shadow);border-color:var(--mid)}
+.team-avatar{
+  width:64px;height:64px;border-radius:50%;background:var(--navy);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--serif);font-size:1.5rem;font-weight:900;color:var(--gold);
+  margin:0 auto 1rem;
+}
+.team-name{font-weight:700;font-size:.9rem;color:var(--navy);margin-bottom:.25rem}
+.team-role{font-size:.75rem;color:var(--mid);font-weight:600;letter-spacing:.04em;margin-bottom:.5rem}
+.team-section{font-size:.72rem;color:#888;line-height:1.5}
+.team-badge{
+  display:inline-block;background:rgba(200,149,42,.12);color:var(--gold);
+  font-size:.65rem;font-weight:700;padding:.2rem .6rem;border-radius:999px;margin-top:.5rem;
+  letter-spacing:.05em;text-transform:uppercase;
+}
+
+/* ── CONCLUSION ─────────────────────────────────────────────── */
+#conclusion{
+  background:linear-gradient(135deg,var(--navy) 0%,#1a3a6e 100%);
+  color:#fff;
+}
+#conclusion .section-title{color:#fff}
+#conclusion .divider{background:var(--gold)}
+.outcome-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin:2rem 0}
+.outcome-card{
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);
+  border-radius:10px;padding:1.5rem;
+}
+.outcome-card h4{color:var(--gold);font-family:var(--serif);font-size:1.1rem;margin-bottom:.75rem}
+.outcome-card p,.outcome-card li{color:rgba(255,255,255,.8);font-size:.88rem;line-height:1.7}
+.outcome-card ul{padding-left:1.25rem}
+.next-steps{
+  background:rgba(200,149,42,.1);border:1px solid rgba(200,149,42,.25);
+  border-radius:10px;padding:1.5rem 2rem;margin-top:1.5rem;
+}
+.next-steps h4{color:var(--gold);margin-bottom:1rem;font-family:var(--serif)}
+.steps-list{display:flex;flex-wrap:wrap;gap:.75rem}
+.step-pill{
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);
+  border-radius:999px;padding:.4rem 1rem;color:rgba(255,255,255,.85);
+  font-size:.8rem;display:flex;align-items:center;gap:.5rem;
+}
+.step-num{
+  width:20px;height:20px;border-radius:50%;background:var(--gold);
+  color:var(--navy);font-size:.65rem;font-weight:800;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.links-bar{display:flex;gap:1rem;margin-top:2rem;flex-wrap:wrap}
+
+/* ── PRESENTATION GUIDE STRIP ─────────────────────────────── */
+.pres-strip{
+  background:var(--gold);padding:.6rem 2rem;
+  display:flex;align-items:center;justify-content:center;gap:2rem;
+  flex-wrap:wrap;
+}
+.pres-strip span{font-size:.78rem;font-weight:600;color:var(--navy)}
+.pres-item{
+  display:flex;align-items:center;gap:.4rem;
+  background:rgba(15,34,64,.12);padding:.25rem .75rem;border-radius:999px;
+}
+.pres-time{font-family:var(--mono);font-weight:700;color:var(--navy);font-size:.78rem}
+
+/* ── FOOTER ─────────────────────────────────────────────────── */
+footer{
+  background:var(--navy);color:rgba(255,255,255,.5);
+  text-align:center;padding:2rem;font-size:.8rem;line-height:1.8;
+  border-top:2px solid var(--gold);
+}
+footer strong{color:rgba(255,255,255,.8)}
+
+/* ── UTILITY ────────────────────────────────────────────────── */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:start}
+.tag{
+  display:inline-block;font-size:.68rem;padding:.18rem .6rem;border-radius:4px;
+  font-weight:700;letter-spacing:.04em;text-transform:uppercase;
+}
+.tag-syn{background:#EEF6FF;color:var(--mid)}
+
+@media(max-width:768px){
+  .problem-grid,.data-grid,.insights-grid,.compare-grid,.team-grid,.two-col,
+  .feature-grid,.rules-grid,.outcome-grid{grid-template-columns:1fr}
+  .hero h1{font-size:2.4rem}
+  .hero-stats{gap:2rem}
+  .nav-links{display:none}
+  .team-grid{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+
+<!-- PRESENTATION TIMING STRIP -->
+<div class="pres-strip">
+  <span>⏱ 5-MIN PRESENTATION GUIDE</span>
+  <div class="pres-item"><span>Ravi</span><span class="pres-time">0:00–0:30</span><span>Problem</span></div>
+  <div class="pres-item"><span>Koteswara</span><span class="pres-time">0:30–1:00</span><span>Data</span></div>
+  <div class="pres-item"><span>Pallavi</span><span class="pres-time">1:00–2:00</span><span>Dashboard</span></div>
+  <div class="pres-item"><span>Niveditha</span><span class="pres-time">2:00–3:30</span><span>Solution</span></div>
+  <div class="pres-item"><span>Snigdha</span><span class="pres-time">3:30–5:00</span><span>Comparison + Close</span></div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">YAIDS <span>· Team 12</span></div>
+  <ul class="nav-links">
+    <li><a href="#problem">Problem</a></li>
+    <li><a href="#data">Data</a></li>
+    <li><a href="#dashboard">Dashboard</a></li>
+    <li><a href="#solution">Solution</a></li>
+    <li><a href="#comparison">Comparison</a></li>
+    <li><a href="#team">Team</a></li>
+    <li><a href="#conclusion">Outcomes</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">
+    <span>IS 5960 MRP · Saint Louis University · Spring 2025</span>
+  </div>
+  <h1>Youth Are Losing the Ability to<br><em>Think for Themselves</em></h1>
+  <p class="hero-sub">YAIDS measures AI dependency among Eastbrook youth, identifies who is at risk, and gives the Youth Wellness Council the tools to act — before the dependency becomes permanent.</p>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">2,500</div><div class="stat-label">Youth Analyzed</div></div>
+    <div class="stat"><div class="stat-num">847</div><div class="stat-label">High-Risk Youth</div></div>
+    <div class="stat"><div class="stat-num">45.7</div><div class="stat-label">Avg Automation Bias</div></div>
+    <div class="stat"><div class="stat-num">88s</div><div class="stat-label">Avg Decision Latency</div></div>
+    <div class="stat"><div class="stat-num">7.0</div><div class="stat-label">Avg Fatigue (WHO threshold)</div></div>
+  </div>
+  <div class="hero-cta">
+    <a href="https://ravigoud100.github.io/aidashboard/" target="_blank" class="btn btn-primary">📊 View Dashboard</a>
+    <a href="https://ravigoud100.github.io/MRP/" target="_blank" class="btn btn-outline">🔬 Open Prototype</a>
+    <a href="#problem" class="btn btn-outline">↓ Explore Project</a>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>Scroll to explore</span>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section id="problem">
+  <div class="container">
+    <div class="section-label">Section 01 — Problem Overview · Ravi (0:00–0:30)</div>
+    <h2 class="section-title">A City Without Data<br>on Its Own Youth</h2>
+    <div class="divider"></div>
+    <div class="two-col">
+      <div>
+        <p class="section-lead">Youth in the City of Eastbrook increasingly rely on AI-powered assistants for everyday decisions. When AI is unavailable, many experience decision paralysis, reduced confidence, and measurable cognitive fatigue.</p>
+        <br>
+        <div class="problem-statement">
+          <h3>Official Problem Statement</h3>
+          <p>Youth in the City of Eastbrook increasingly rely on AI-powered assistants to guide everyday decisions. This reliance has measurable behavioral consequences: elevated automation bias, reduced verification of AI outputs, longer independent decision latency, and clinically concerning fatigue. The Youth Wellness Council currently lacks a centralized behavioral data system to measure the scope of the problem or evaluate any response.</p>
+        </div>
+        <div class="crisis-banner" style="margin-top:1.25rem">
+          <div class="big-num">38%</div>
+          <div class="crisis-text">
+            <strong>of monitored Eastbrook youth are HIGH RISK</strong>
+            847 out of 2,500 youth score above the 0.60 Autonomy Risk threshold — most severely in the middle school group aged 13–15.
+          </div>
+        </div>
+      </div>
+      <div>
+        <p style="font-weight:600;color:var(--navy);margin-bottom:1rem;font-size:.9rem;letter-spacing:.03em;text-transform:uppercase">Stakeholders & Pain Points</p>
+        <div class="stakeholder-list">
+          <div class="stakeholder">
+            <div class="s-icon">🏛️</div>
+            <div><div class="s-name">Youth Wellness Council</div><div class="s-pain">No behavioral data system, no risk baseline, no accountability metrics to justify program spending to city leadership.</div></div>
+          </div>
+          <div class="stakeholder">
+            <div class="s-icon">🧑‍🏫</div>
+            <div><div class="s-name">School Counselors</div><div class="s-pain">Referrals are based on teacher observation only — no quantitative risk scoring or prioritization tool.</div></div>
+          </div>
+          <div class="stakeholder">
+            <div class="s-icon">👨‍👩‍👧</div>
+            <div><div class="s-name">Parents</div><div class="s-pain">Concerned about AI effects on children's independence but have no visibility into behavioral risk data.</div></div>
+          </div>
+          <div class="stakeholder">
+            <div class="s-icon">🏙️</div>
+            <div><div class="s-name">City Leadership</div><div class="s-pain">Cannot approve budget allocations without outcome data and measurable accountability from the Council.</div></div>
+          </div>
+          <div class="stakeholder">
+            <div class="s-icon">🧑‍💻</div>
+            <div><div class="s-name">Youth (13–22)</div><div class="s-pain">Experiencing reduced decision confidence and elevated fatigue without awareness of the systemic cause.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DATA -->
+<section id="data">
+  <div class="container">
+    <div class="section-label">Section 02 — Data Design · Koteswara (0:30–1:00)</div>
+    <h2 class="section-title">2,500 Youth.<br>22 Behavioral Variables.</h2>
+    <div class="divider"></div>
+    <p class="section-lead">A fully synthetic behavioral dataset calibrated to real-world published benchmarks — designed to mirror what a live Community Wellness Portal survey would produce.</p>
+
+    <div class="data-grid" style="margin-top:2rem">
+      <div class="data-card">
+        <div class="dc-label">Dataset Scale</div>
+        <div class="dc-val">2,500</div>
+        <div class="dc-desc">Participant records across 4 MySQL tables: Youth Profile, AI Usage, Cognitive Outcomes, and Health Indicators. All linked by Youth_ID primary key.</div>
+      </div>
+      <div class="data-card">
+        <div class="dc-label">Variables</div>
+        <div class="dc-val">22</div>
+        <div class="dc-desc">15 behavioral + 7 clinical variables. Each variable maps to a validated research instrument (Mosier & Skitka 2018, Upshaw 2022, WHO 2019, Sundar 2008).</div>
+      </div>
+      <div class="data-card">
+        <div class="dc-label">Data Type</div>
+        <div class="dc-val"><span class="tag tag-syn">Synthetic</span></div>
+        <div class="dc-desc">Generated with Python using calibrated distributions. Every generation rule is backed by published research. Ecological validity confirmed against Pew Research 2023 benchmarks.</div>
+      </div>
+      <div class="data-card">
+        <div class="dc-label">High-Risk Records</div>
+        <div class="dc-val" style="color:var(--red)">847</div>
+        <div class="dc-desc">Youth with Autonomy Risk Score above 0.60. Consistent with Pew Research Center (2023) prevalence estimates for AI dependency in adolescents.</div>
+      </div>
+      <div class="data-card">
+        <div class="dc-label">Avg Decision Latency</div>
+        <div class="dc-val">88s</div>
+        <div class="dc-desc">Measured via timed response task (Upshaw et al., 2022). Positive correlation with daily AI prompts: r = 0.68. Target after intervention: ≤55 seconds.</div>
+      </div>
+      <div class="data-card">
+        <div class="dc-label">Avg Fatigue Level</div>
+        <div class="dc-val" style="color:var(--gold)">7.0/10</div>
+        <div class="dc-desc">Exactly at WHO (2019) clinical concern threshold for adolescents. Generated as positive function of screen time hours (r = 0.54).</div>
+      </div>
+    </div>
+
+    <div style="margin-top:2.5rem">
+      <p style="font-weight:700;color:var(--navy);margin-bottom:1rem;font-size:.95rem">Key Generation Rules (Calibrated to Research)</p>
+      <div class="rules-grid">
+        <div class="rule-item"><span class="rule-var">ABI</span><span class="rule-desc">Normal(μ=45.7, σ=12.3), clipped 0–100. Calibrated to Mosier & Skitka (2018) baseline.</span></div>
+        <div class="rule-item"><span class="rule-var">Latency</span><span class="rule-desc">Linear function of Daily_AI_Prompts; r=0.68; μ=88s, σ=18s. Upshaw et al. (2022).</span></div>
+        <div class="rule-item"><span class="rule-var">VBS</span><span class="rule-desc">Negative function of ABI; r=−0.61; μ=3.8/10. Sundar (2008) self-report Likert.</span></div>
+        <div class="rule-item"><span class="rule-var">Fatigue</span><span class="rule-desc">Positive function of Screen_Time; r=0.54; μ=7.0. WHO (2019) clinical threshold.</span></div>
+        <div class="rule-item"><span class="rule-var">Parental Monitor</span><span class="rule-desc">Bimodal: 40% active (μ=7.5), 60% passive (μ=3.2). Livingstone & Helsper (2008).</span></div>
+        <div class="rule-item"><span class="rule-var">Risk Score</span><span class="rule-desc">(ABI/100)×0.30 + ((10−VBS)/10)×0.30 + (L/150)×0.20 + ((10−C)/10)×0.20. Threshold: 0.60.</span></div>
+      </div>
+    </div>
+
+    <div class="table-section">
+      <h3>All 22 Dataset Variables</h3>
+      <table class="var-table">
+        <thead><tr><th>Variable</th><th>Domain</th><th>Type</th><th>Range</th><th>Research Source</th></tr></thead>
+        <tbody>
+          <tr><td>Youth_ID</td><td><span class="domain-badge d-profile">Profile</span></td><td>Integer</td><td>1–2500</td><td>Primary key</td></tr>
+          <tr><td>Age</td><td><span class="domain-badge d-profile">Profile</span></td><td>Integer</td><td>13–22 yrs</td><td>Survey self-report</td></tr>
+          <tr><td>Gender</td><td><span class="domain-badge d-profile">Profile</span></td><td>Categorical</td><td>M / F / Non-binary</td><td>Survey</td></tr>
+          <tr><td>School_Level</td><td><span class="domain-badge d-profile">Profile</span></td><td>Categorical</td><td>Middle / High / College</td><td>Survey</td></tr>
+          <tr><td>Urban_Rural</td><td><span class="domain-badge d-profile">Profile</span></td><td>Categorical</td><td>Urban / Suburban / Rural</td><td>Survey</td></tr>
+          <tr><td>Daily_AI_Prompts</td><td><span class="domain-badge d-ai">AI Usage</span></td><td>Integer</td><td>0–200/day</td><td>Pew Research Center (2023)</td></tr>
+          <tr><td>Screen_Time_Hours</td><td><span class="domain-badge d-ai">AI Usage</span></td><td>Float</td><td>0–14 hrs/day</td><td>Pew Research Center (2023)</td></tr>
+          <tr><td>AI_Usage_Minutes</td><td><span class="domain-badge d-ai">AI Usage</span></td><td>Integer</td><td>0–840 min/day</td><td>Portal log</td></tr>
+          <tr><td>AI_Tools_Used</td><td><span class="domain-badge d-ai">AI Usage</span></td><td>Integer</td><td>1–6 tools</td><td>Survey</td></tr>
+          <tr><td>Device_Type</td><td><span class="domain-badge d-ai">AI Usage</span></td><td>Categorical</td><td>Phone / Tablet / PC</td><td>Survey</td></tr>
+          <tr><td>Decision_Latency_Seconds</td><td><span class="domain-badge d-cog">Cognitive</span></td><td>Float</td><td>35–150 sec</td><td>Upshaw et al. (2022)</td></tr>
+          <tr><td>Automation_Bias_Index</td><td><span class="domain-badge d-cog">Cognitive</span></td><td>Float</td><td>0–100</td><td>Mosier & Skitka (2018)</td></tr>
+          <tr><td>Verification_Behavior_Score</td><td><span class="domain-badge d-cog">Cognitive</span></td><td>Float</td><td>0–10</td><td>Sundar (2008)</td></tr>
+          <tr><td>Confidence_Independent</td><td><span class="domain-badge d-cog">Cognitive</span></td><td>Float</td><td>0–10</td><td>Bandura (1997) Self-Efficacy</td></tr>
+          <tr><td>Attention_Score</td><td><span class="domain-badge d-cog">Cognitive</span></td><td>Float</td><td>0–100</td><td>Petersen & Posner (2012)</td></tr>
+          <tr><td>Autonomy_Risk_Score</td><td><span class="domain-badge d-cog">Cognitive</span></td><td>Float</td><td>0.0–1.0</td><td>YAIDS composite formula</td></tr>
+          <tr><td>Fatigue_Level</td><td><span class="domain-badge d-health">Health</span></td><td>Float</td><td>0–10</td><td>WHO (2019); Krupp et al. FSS</td></tr>
+          <tr><td>Sleep_Hours</td><td><span class="domain-badge d-health">Health</span></td><td>Float</td><td>4–10 hrs</td><td>WHO (2019)</td></tr>
+          <tr><td>Physical_Activity_Min</td><td><span class="domain-badge d-health">Health</span></td><td>Integer</td><td>0–120 min/day</td><td>WHO (2019)</td></tr>
+          <tr><td>Parental_Monitoring_Level</td><td><span class="domain-badge d-health">Health</span></td><td>Float</td><td>0–10</td><td>Livingstone & Helsper (2008)</td></tr>
+          <tr><td>Social_Support_Score</td><td><span class="domain-badge d-health">Health</span></td><td>Float</td><td>0–10</td><td>APA (2022)</td></tr>
+          <tr><td>Academic_Performance</td><td><span class="domain-badge d-health">Health</span></td><td>Float</td><td>0–100</td><td>Survey self-report</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- DASHBOARD -->
+<section id="dashboard">
+  <div class="container">
+    <div class="section-label">Section 03 — Dashboard Insights · Pallavi (1:00–2:00)</div>
+    <h2 class="section-title">The Data Tells<br>Three Stories</h2>
+    <div class="divider"></div>
+    <p class="section-lead">The YAIDS dashboard is structured around three chapters that answer the Council's three core questions — all in one place, updated in real time by demographic filters.</p>
+
+    <div class="db-frame">
+      <div class="db-frame-label">
+        <div class="db-dot"></div>
+        <span class="db-title">YAIDS Analytics Dashboard — https://ravigoud100.github.io/aidashboard/</span>
+      </div>
+      <iframe src="https://ravigoud100.github.io/aidashboard/" title="YAIDS Dashboard" loading="lazy"></iframe>
+    </div>
+    <p style="font-size:.78rem;color:#888;text-align:center;margin-top:.5rem">↑ Live dashboard — fully interactive. Use the filters above to segment by school level, age group, or gender.</p>
+
+    <div class="insights-grid" style="margin-top:2rem">
+      <div class="insight-card red-top">
+        <div class="insight-num danger">r = 0.68</div>
+        <div class="insight-label">Chapter 1 — AI Use → Decision Paralysis</div>
+        <div class="insight-desc">Chart 1 shows a strong positive correlation between daily AI prompts and decision latency. The more youth use AI, the longer they take to decide without it. Heavy users (>100 prompts/day) average 112 seconds vs. 64 seconds for light users.</div>
+      </div>
+      <div class="insight-card red-top">
+        <div class="insight-num danger">847</div>
+        <div class="insight-label">Chapter 2 — Who Is At Risk Right Now</div>
+        <div class="insight-desc">Chart 6 (risk scatter) shows 847 youth in the red quadrant — high automation bias AND low verification behavior. Dot size = decision latency. This cluster is predominantly middle school students. These are the youth who need immediate intervention.</div>
+      </div>
+      <div class="insight-card gold-top">
+        <div class="insight-num warn">7.0/10</div>
+        <div class="insight-label">Chapter 3 — A Clinical Health Crisis</div>
+        <div class="insight-desc">Average fatigue is exactly at the WHO clinical concern threshold. Chart 11 (wellness radar) reveals middle school students have the weakest profile across ALL five wellness dimensions — fatigue, attention, sleep, activity, and confidence. This is a health emergency, not just a behavior problem.</div>
+      </div>
+    </div>
+
+    <div style="background:#fff;border:1px solid var(--border);border-radius:10px;padding:1.5rem 2rem;margin-top:1.5rem">
+      <p style="font-weight:700;color:var(--navy);margin-bottom:.75rem">5 Key Insights That Drive the Solution</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem">
+        <div style="display:flex;gap:.75rem;align-items:flex-start">
+          <span style="color:var(--gold);font-weight:800;font-size:1.1rem;flex-shrink:0">1.</span>
+          <span style="font-size:.85rem;color:#555">ABI distribution is right-skewed: heavy users average <strong>61.3</strong> vs <strong>34.2</strong> for light users — a 79% difference confirming behavioral segmentation works.</span>
+        </div>
+        <div style="display:flex;gap:.75rem;align-items:flex-start">
+          <span style="color:var(--gold);font-weight:800;font-size:1.1rem;flex-shrink:0">2.</span>
+          <span style="font-size:.85rem;color:#555">Parental monitoring (Chart 8) shows a significant protective effect: high-monitoring households average ABI <strong>18 points lower</strong>.</span>
+        </div>
+        <div style="display:flex;gap:.75rem;align-items:flex-start">
+          <span style="color:var(--gold);font-weight:800;font-size:1.1rem;flex-shrink:0">3.</span>
+          <span style="font-size:.85rem;color:#555">Middle school students have the weakest wellness radar across all 5 dimensions — making them the <strong>highest priority intervention group</strong>.</span>
+        </div>
+        <div style="display:flex;gap:.75rem;align-items:flex-start">
+          <span style="color:var(--gold);font-weight:800;font-size:1.1rem;flex-shrink:0">4.</span>
+          <span style="font-size:.85rem;color:#555">Verification Behavior Score (avg 3.8/10) is the second strongest predictor in the risk formula — youth aren't checking what AI tells them.</span>
+        </div>
+        <div style="display:flex;gap:.75rem;align-items:flex-start">
+          <span style="color:var(--gold);font-weight:800;font-size:1.1rem;flex-shrink:0">5.</span>
+          <span style="font-size:.85rem;color:#555">Attention score averages only <strong>54/100</strong> — directly linked to screen time exposure and AI usage frequency (r = −0.58).</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section id="solution">
+  <div class="container">
+    <div class="section-label">Section 04 — Proposed Solution · Niveditha (2:00–3:30)</div>
+    <h2 class="section-title">From Data to Action —<br>The YAIDS Platform</h2>
+    <div class="divider"></div>
+    <p class="section-lead">YAIDS is a full-stack behavioral analytics and intervention system. Not just a dashboard — a complete decision-support platform that takes the Council from zero data to fully actionable insights.</p>
+
+    <div class="sol-tabs">
+      <button class="sol-tab active" onclick="showTab('prototype')">🔬 Prototype App</button>
+      <button class="sol-tab" onclick="showTab('kpis')">📊 KPIs</button>
+      <button class="sol-tab" onclick="showTab('architecture')">🏗️ Architecture</button>
+      <button class="sol-tab" onclick="showTab('tech')">⚙️ Technology</button>
+    </div>
+
+    <!-- PROTOTYPE TAB -->
+    <div id="tab-prototype" class="sol-panel active">
+      <div class="db-frame" style="margin-bottom:1.5rem">
+        <div class="db-frame-label">
+          <div class="db-dot"></div>
+          <span class="db-title">YAIDS Prototype — https://ravigoud100.github.io/MRP/</span>
+        </div>
+        <iframe src="https://ravigoud100.github.io/MRP/" title="YAIDS Prototype" loading="lazy"></iframe>
+      </div>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="f-icon">🏠</div>
+          <div>
+            <div class="f-name">Home — Crisis Alert</div>
+            <div class="f-desc">Real-time crisis banner showing 847 high-risk youth. Immediate visual impact for the Council. System overview and data-to-action pipeline diagram.</div>
+          </div>
+        </div>
+        <div class="feature-card">
+          <div class="f-icon">📊</div>
+          <div>
+            <div class="f-name">Analytics — 11 Live Charts</div>
+            <div class="f-desc">Full dashboard with demographic filters (school level, age, gender). All 11 charts update simultaneously. Three storytelling chapters guide the viewer through the data.</div>
+          </div>
+        </div>
+        <div class="feature-card">
+          <div class="f-icon">🎯</div>
+          <div>
+            <div class="f-name">Risk Assessment Tool</div>
+            <div class="f-desc">Counselors input 7 behavioral variables via calibrated sliders. System computes Autonomy Risk Score in real time and generates a personalized, research-cited intervention plan with a red/yellow/green risk badge.</div>
+          </div>
+        </div>
+        <div class="feature-card">
+          <div class="f-icon">📅</div>
+          <div>
+            <div class="f-name">Intervention Planner</div>
+            <div class="f-desc">Select school level and evidence-based programs. Generates a complete 12-week implementation schedule with projected before-and-after KPI outcomes. 5 programs, each backed by published research.</div>
+          </div>
+        </div>
+        <div class="feature-card">
+          <div class="f-icon">📈</div>
+          <div>
+            <div class="f-name">KPI Tracker + Reports</div>
+            <div class="f-desc">All 6 KPI progress bars vs. targets. One-click Council Report Generator — a formatted document ready for city leadership budget approval submission.</div>
+          </div>
+        </div>
+        <div class="feature-card">
+          <div class="f-icon">🔬</div>
+          <div>
+            <div class="f-name">5 Evidence-Based Programs</div>
+            <div class="f-desc">AI Literacy Training (Long & Magerko 2020), Decision Confidence Training (Upshaw 2022), Screen Time Limits (WHO 2019), Counselor Referral System (APA 2022), Parent Training (Livingstone & Helsper 2008).</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- KPIs TAB -->
+    <div id="tab-kpis" class="sol-panel">
+      <div class="kpi-table-wrap">
+        <table class="kpi-table">
+          <thead>
+            <tr><th>#</th><th>KPI Name</th><th>Formula</th><th>AS-IS</th><th>Target</th><th>Source</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td><strong>Autonomy Risk Score</strong></td>
+              <td><span class="kpi-tag">(ABI/100)×0.30 + ((10−VBS)/10)×0.30 + (L/150)×0.20 + ((10−C)/10)×0.20</span></td>
+              <td>Mean 0.54; <span style="color:var(--red)">38% above 0.60</span></td>
+              <td>&lt;20% above 0.60</td>
+              <td>YAIDS composite</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td><strong>Decision Latency</strong></td>
+              <td><span class="kpi-tag">avg(Decision_Latency_Seconds); RR%=((L_pre−L_post)/L_pre)×100</span></td>
+              <td><span style="color:var(--red)">88 seconds</span></td>
+              <td>≤55 seconds</td>
+              <td>Upshaw et al. (2022)</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td><strong>Verification Behavior Score</strong></td>
+              <td><span class="kpi-tag">Direct var (0–10); Unverified Rate = (P−V)/S</span></td>
+              <td><span style="color:var(--red)">3.8 / 10</span></td>
+              <td>≥6.0</td>
+              <td>Sundar (2008)</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td><strong>Automation Bias Index</strong></td>
+              <td><span class="kpi-tag">Direct var (0–100); adapted (P−V)/S class formula</span></td>
+              <td><span style="color:var(--red)">45.7 / 100</span></td>
+              <td>≤35</td>
+              <td>Mosier & Skitka (2018)</td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td><strong>Youth Fatigue Level</strong></td>
+              <td><span class="kpi-tag">Direct var (0–10); Cognitive Load = (F/10)×(S/14)</span></td>
+              <td><span style="color:var(--gold)">7.0 / 10 ⚠️ WHO clinical</span></td>
+              <td>≤5.0</td>
+              <td>WHO (2019)</td>
+            </tr>
+            <tr>
+              <td>6</td>
+              <td><strong>High-Risk Youth Rate</strong></td>
+              <td><span class="kpi-tag">H%=(R_pre/N)×100; RR%=((R_pre−R_post)/R_pre)×100</span></td>
+              <td><span style="color:var(--red)">38% (847 youth)</span></td>
+              <td>&lt;20%</td>
+              <td>APA (2022)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:.8rem;color:#888;margin-top:.75rem">All 6 KPIs are live in the dashboard KPI cards and tracked in the prototype's KPI Tracker page. KPIs 3 and 4 both use the class AI Dependence Score formula (P−V)/S, adapted to the YAIDS dataset.</p>
+    </div>
+
+    <!-- ARCHITECTURE TAB -->
+    <div id="tab-architecture" class="sol-panel">
+      <p style="color:#555;font-size:.9rem;margin-bottom:1rem">Our solution architecture follows the <strong>TOGAF ADM framework</strong> across four domains: Business, Data, Application, and Technology. The full pipeline flows from Community Wellness Portal → Python Pipeline → MySQL → Flask API → Chart.js Dashboard → YAIDS Prototype → Council Policies.</p>
+      <div class="ea-wrap">
+        <img src="https://ravigoud100.github.io/MRP/ea_diagram.png" alt="YAIDS Enterprise Architecture Diagram" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+        <div style="display:none;padding:3rem;text-align:center;color:#888;background:var(--cream)">
+          <p style="font-size:1rem;margin-bottom:.5rem">🏗️ Enterprise Architecture Diagram</p>
+          <p style="font-size:.85rem">TOGAF ADM · Four Domains · Solution + Technology Building Blocks</p>
+        </div>
+        <div class="ea-caption">Fig. Enterprise Architecture Diagram — YAIDS · TOGAF ADM · Team 12 · SLU · Spring 2025</div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-top:1.5rem">
+        <div style="background:var(--paper);border:1px solid var(--border);border-radius:8px;padding:1.25rem">
+          <p style="font-weight:700;color:var(--navy);margin-bottom:.5rem;font-size:.85rem">🏢 Business Architecture</p>
+          <p style="font-size:.8rem;color:#555;line-height:1.6">Youth behavior assessment, AI usage monitoring, counselor referral reporting, policy development, intervention program planning, Council report generation.</p>
+        </div>
+        <div style="background:var(--paper);border:1px solid var(--border);border-radius:8px;padding:1.25rem">
+          <p style="font-weight:700;color:var(--navy);margin-bottom:.5rem;font-size:.85rem">🗄️ Data Architecture</p>
+          <p style="font-size:.8rem;color:#555;line-height:1.6">MySQL 8.0, 2,500 rows × 22 variables, 4 related tables (Youth_ID PK), KPI metric store with AS-IS and TO-BE targets, intervention outcome projections.</p>
+        </div>
+        <div style="background:var(--paper);border:1px solid var(--border);border-radius:8px;padding:1.25rem">
+          <p style="font-weight:700;color:var(--navy);margin-bottom:.5rem;font-size:.85rem">💻 Application Architecture</p>
+          <p style="font-size:.8rem;color:#555;line-height:1.6">Chart.js dashboard (11 charts), YAIDS 5-page prototype, Flask REST API, Risk Assessment tool (weighted composite), Intervention Planner (12-week), KPI Tracker + Report Generator.</p>
+        </div>
+        <div style="background:var(--paper);border:1px solid var(--border);border-radius:8px;padding:1.25rem">
+          <p style="font-weight:700;color:var(--navy);margin-bottom:.5rem;font-size:.85rem">⚙️ Technology Architecture</p>
+          <p style="font-size:.8rem;color:#555;line-height:1.6">Python 3.10+ / pandas, MySQL 8.0, HTML/CSS/JavaScript (single-file), Chart.js 4.4.0 via jsDelivr CDN, GitHub Pages live deployment, City IT cloud hosting (FERPA-compliant).</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- TECH TAB -->
+    <div id="tab-tech" class="sol-panel">
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem">
+        <div>
+          <p style="font-weight:700;color:var(--navy);margin-bottom:1rem">Why These Tools?</p>
+          <div style="display:flex;flex-direction:column;gap:.75rem">
+            <div style="background:var(--cream);border:1px solid var(--border);border-radius:8px;padding:1rem">
+              <p style="font-weight:600;font-size:.85rem;color:var(--navy)">Chart.js 4.4.0 <span style="color:var(--green);font-size:.75rem">(vs Plotly)</span></p>
+              <p style="font-size:.8rem;color:#666;margin-top:.25rem">Selected for CDN reliability and 40% faster load time. Plotly CDN had intermittent failures during development — Chart.js eliminated the risk.</p>
+            </div>
+            <div style="background:var(--cream);border:1px solid var(--border);border-radius:8px;padding:1rem">
+              <p style="font-weight:600;font-size:.85rem;color:var(--navy)">Flask REST API</p>
+              <p style="font-size:.8rem;color:#666;margin-top:.25rem">Lightweight, stateless backend appropriate for City IT infrastructure. No proprietary licensing, maintainable by city IT staff.</p>
+            </div>
+            <div style="background:var(--cream);border:1px solid var(--border);border-radius:8px;padding:1rem">
+              <p style="font-weight:600;font-size:.85rem;color:var(--navy)">MySQL 8.0 + RBAC</p>
+              <p style="font-size:.8rem;color:#666;margin-top:.25rem">FERPA-compliant relational storage with Role-Based Access Control. 4 tables, Youth_ID primary key, optimized for dashboard query patterns.</p>
+            </div>
+            <div style="background:var(--cream);border:1px solid var(--border);border-radius:8px;padding:1rem">
+              <p style="font-weight:600;font-size:.85rem;color:var(--navy)">GitHub Pages</p>
+              <p style="font-size:.8rem;color:#666;margin-top:.25rem">Zero-cost live deployment with version control. Entire YAIDS system is publicly accessible, forkable, and replicable by other municipalities.</p>
+            </div>
+          </div>
+        </div>
+        <div>
+          <p style="font-weight:700;color:var(--navy);margin-bottom:1rem">Full Technology Stack</p>
+          <div class="tech-pills">
+            <span class="tech-pill">Python 3.10+</span><span class="tech-pill">pandas</span>
+            <span class="tech-pill">MySQL 8.0</span><span class="tech-pill">Flask REST API</span>
+            <span class="tech-pill">Chart.js 4.4.0</span><span class="tech-pill">HTML5</span>
+            <span class="tech-pill">CSS3</span><span class="tech-pill">JavaScript ES6</span>
+            <span class="tech-pill">GitHub Pages</span><span class="tech-pill">RBAC Auth</span>
+            <span class="tech-pill">City IT Cloud</span><span class="tech-pill">FERPA Compliant</span>
+            <span class="tech-pill">Synthea + Custom</span><span class="tech-pill">jsDelivr CDN</span>
+          </div>
+          <div style="background:var(--navy);border-radius:8px;padding:1.25rem;margin-top:1.25rem">
+            <p style="color:rgba(255,255,255,.6);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.75rem">End-to-End Pipeline</p>
+            <div style="display:flex;flex-wrap:wrap;gap:.4rem;align-items:center">
+              <span style="background:rgba(255,255,255,.1);color:#fff;font-size:.75rem;padding:.25rem .65rem;border-radius:4px">Community Wellness Portal</span>
+              <span style="color:var(--gold)">→</span>
+              <span style="background:rgba(255,255,255,.1);color:#fff;font-size:.75rem;padding:.25rem .65rem;border-radius:4px">Python Pipeline</span>
+              <span style="color:var(--gold)">→</span>
+              <span style="background:rgba(255,255,255,.1);color:#fff;font-size:.75rem;padding:.25rem .65rem;border-radius:4px">MySQL</span>
+              <span style="color:var(--gold)">→</span>
+              <span style="background:rgba(255,255,255,.1);color:#fff;font-size:.75rem;padding:.25rem .65rem;border-radius:4px">Flask API</span>
+              <span style="color:var(--gold)">→</span>
+              <span style="background:rgba(255,255,255,.1);color:#fff;font-size:.75rem;padding:.25rem .65rem;border-radius:4px">Dashboard</span>
+              <span style="color:var(--gold)">→</span>
+              <span style="background:rgba(255,255,255,.1);color:#fff;font-size:.75rem;padding:.25rem .65rem;border-radius:4px">YAIDS Prototype</span>
+              <span style="color:var(--gold)">→</span>
+              <span style="background:rgba(200,149,42,.2);color:var(--gold);font-size:.75rem;padding:.25rem .65rem;border-radius:4px">Council Policies</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARISON -->
+<section id="comparison">
+  <div class="container">
+    <div class="section-label">Section 05 — Data 1 vs Data 2 · Snigdha (3:30–4:30)</div>
+    <h2 class="section-title">Before YAIDS.<br>After YAIDS.</h2>
+    <div class="divider"></div>
+    <p class="section-lead">The Before vs. After Impact tab shows the projected transformation after 12 weeks of intervention program deployment. Every improvement percentage is backed by the published research that proves the intervention works.</p>
+
+    <div class="db-frame" style="margin:1.5rem 0">
+      <div class="db-frame-label">
+        <div class="db-dot"></div>
+        <span class="db-title">Before vs After Impact Tab — Dashboard Section 3</span>
+      </div>
+      <iframe src="https://ravigoud100.github.io/aidashboard/#tab3" title="Before vs After" loading="lazy" style="height:500px"></iframe>
+    </div>
+
+    <div class="compare-grid">
+      <div class="compare-card">
+        <div class="cc-header"><div class="cc-metric">🎯 Automation Bias Index</div></div>
+        <div class="cc-body">
+          <div class="cc-row"><span class="cc-label">BEFORE</span><span class="cc-before">45.7</span><span class="cc-arrow">→</span><span class="cc-label">AFTER</span><span class="cc-after">32.9</span></div>
+          <div class="cc-improvement">↓ 28% reduction</div>
+          <div class="cc-source">AI Literacy Training · Long & Magerko (2020)</div>
+        </div>
+      </div>
+      <div class="compare-card">
+        <div class="cc-header"><div class="cc-metric">⏱ Decision Latency</div></div>
+        <div class="cc-body">
+          <div class="cc-row"><span class="cc-label">BEFORE</span><span class="cc-before">88s</span><span class="cc-arrow">→</span><span class="cc-label">AFTER</span><span class="cc-after">60s</span></div>
+          <div class="cc-improvement">↓ 32% faster decisions</div>
+          <div class="cc-source">Decision Confidence Training · Upshaw et al. (2022)</div>
+        </div>
+      </div>
+      <div class="compare-card">
+        <div class="cc-header"><div class="cc-metric">✅ Verification Behavior</div></div>
+        <div class="cc-body">
+          <div class="cc-row"><span class="cc-label">BEFORE</span><span class="cc-before">3.8</span><span class="cc-arrow">→</span><span class="cc-label">AFTER</span><span class="cc-after">7.8</span></div>
+          <div class="cc-improvement">↑ 105% improvement</div>
+          <div class="cc-source">AI Literacy Training · Sundar (2008)</div>
+        </div>
+      </div>
+      <div class="compare-card">
+        <div class="cc-header"><div class="cc-metric">😴 Fatigue Level</div></div>
+        <div class="cc-body">
+          <div class="cc-row"><span class="cc-label">BEFORE</span><span class="cc-before">7.0</span><span class="cc-arrow">→</span><span class="cc-label">AFTER</span><span class="cc-after">5.5</span></div>
+          <div class="cc-improvement">↓ 22% reduction</div>
+          <div class="cc-source">Screen Time Limits · WHO (2019)</div>
+        </div>
+      </div>
+      <div class="compare-card">
+        <div class="cc-header"><div class="cc-metric">🧠 Attention Score</div></div>
+        <div class="cc-body">
+          <div class="cc-row"><span class="cc-label">BEFORE</span><span class="cc-before">54</span><span class="cc-arrow">→</span><span class="cc-label">AFTER</span><span class="cc-after">68</span></div>
+          <div class="cc-improvement">↑ 26% improvement</div>
+          <div class="cc-source">Cognitive recovery · Petersen & Posner (2012)</div>
+        </div>
+      </div>
+      <div class="compare-card">
+        <div class="cc-header"><div class="cc-metric">🚨 High-Risk Youth Rate</div></div>
+        <div class="cc-body">
+          <div class="cc-row"><span class="cc-label">BEFORE</span><span class="cc-before">38%</span><span class="cc-arrow">→</span><span class="cc-label">AFTER</span><span class="cc-after">20%</span></div>
+          <div class="cc-improvement">↓ 450 youth exit danger zone</div>
+          <div class="cc-source">Combined programs · APA (2022)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Visual bar comparison -->
+    <div style="background:#fff;border:1px solid var(--border);border-radius:10px;padding:1.75rem 2rem;margin-top:2rem">
+      <p style="font-weight:700;color:var(--navy);margin-bottom:1rem">KPI Improvement Summary</p>
+      <div class="bar-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:var(--red)"></div>Before Intervention</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div>After Intervention (projected)</div>
+      </div>
+      <div class="compare-bar">
+        <div class="bar-row">
+          <span class="bar-metric">High-Risk Youth %</span>
+          <div class="bar-track">
+            <div class="bar-before" style="width:38%"></div>
+            <div class="bar-after" style="width:20%"></div>
+          </div>
+          <div class="bar-vals"><span class="bv-before">38%</span><span style="color:#aaa">→</span><span class="bv-after">20%</span></div>
+        </div>
+        <div class="bar-row">
+          <span class="bar-metric">Automation Bias Index</span>
+          <div class="bar-track">
+            <div class="bar-before" style="width:45.7%"></div>
+            <div class="bar-after" style="width:32.9%"></div>
+          </div>
+          <div class="bar-vals"><span class="bv-before">45.7</span><span style="color:#aaa">→</span><span class="bv-after">32.9</span></div>
+        </div>
+        <div class="bar-row">
+          <span class="bar-metric">Decision Latency</span>
+          <div class="bar-track">
+            <div class="bar-before" style="width:58.7%"></div>
+            <div class="bar-after" style="width:40%"></div>
+          </div>
+          <div class="bar-vals"><span class="bv-before">88s</span><span style="color:#aaa">→</span><span class="bv-after">60s</span></div>
+        </div>
+        <div class="bar-row">
+          <span class="bar-metric">Fatigue Level</span>
+          <div class="bar-track">
+            <div class="bar-before" style="width:70%"></div>
+            <div class="bar-after" style="width:55%"></div>
+          </div>
+          <div class="bar-vals"><span class="bv-before">7.0</span><span style="color:#aaa">→</span><span class="bv-after">5.5</span></div>
+        </div>
+        <div class="bar-row">
+          <span class="bar-metric">Verification Score</span>
+          <div class="bar-track">
+            <div class="bar-before" style="width:38%"></div>
+            <div class="bar-after" style="width:78%"></div>
+          </div>
+          <div class="bar-vals"><span class="bv-before">3.8</span><span style="color:#aaa">→</span><span class="bv-after">7.8</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section id="team">
+  <div class="container">
+    <div class="section-label">Our Team — Saint Louis University · IS 5960 MRP</div>
+    <h2 class="section-title">Team 12</h2>
+    <div class="divider"></div>
+    <p class="section-lead">Five graduate students. One shared goal: give the City of Eastbrook the data infrastructure it needs to protect its youth from AI dependency.</p>
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="team-avatar">R</div>
+        <div class="team-name">Ravi Anumanthula</div>
+        <div class="team-role">Project Manager</div>
+        <div class="team-section">Problem Overview · Timeline · Stakeholder Delivery · Final Closing</div>
+        <div class="team-badge">Presents 0:00</div>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar">K</div>
+        <div class="team-name">Koteswara Rao Manda</div>
+        <div class="team-role">Business Analyst</div>
+        <div class="team-section">Data Design · Research Backing · Solution Statement</div>
+        <div class="team-badge">Presents 0:30</div>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar">P</div>
+        <div class="team-name">Pallavi Burugu</div>
+        <div class="team-role">Data Analyst</div>
+        <div class="team-section">Dashboard Insights · KPI Formulas · Before vs After Analysis</div>
+        <div class="team-badge">Presents 1:00</div>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar">N</div>
+        <div class="team-name">Niveditha Aitha</div>
+        <div class="team-role">System Architect</div>
+        <div class="team-section">Enterprise Architecture · Data Pipeline · Technology Stack</div>
+        <div class="team-badge">Presents 2:00</div>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar">S</div>
+        <div class="team-name">Snigdha Ailneni</div>
+        <div class="team-role">Prototype Designer</div>
+        <div class="team-section">YAIDS Prototype · Comparison Tab · Intervention Planner</div>
+        <div class="team-badge">Presents 3:30</div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:1.5rem;color:#888;font-size:.85rem">
+      Advisor: <strong>Dr. Tatiana Cardona</strong> · Information Systems Department · Saint Louis University · Spring 2025
+    </div>
+  </div>
+</section>
+
+<!-- CONCLUSION -->
+<section id="conclusion">
+  <div class="container">
+    <div class="section-label" style="color:rgba(200,149,42,.8)">Section 06 — Conclusion · Ravi (4:30–5:00)</div>
+    <h2 class="section-title">From Zero Data<br>to Full Accountability</h2>
+    <div class="divider"></div>
+    <p class="section-lead" style="color:rgba(255,255,255,.7)">YAIDS takes the City of Eastbrook from having no behavioral data about youth AI dependency to having a complete system that diagnoses the problem, identifies who is at risk, prescribes interventions, and tracks results.</p>
+
+    <div class="outcome-grid">
+      <div class="outcome-card">
+        <h4>What We Delivered</h4>
+        <ul>
+          <li>2,500-participant behavioral dataset, 22 variables, calibrated to published benchmarks</li>
+          <li>11-chart storytelling dashboard with 3 narrative chapters and live filters</li>
+          <li>5-page interactive YAIDS prototype with Risk Assessment, Intervention Planner, and KPI Tracker</li>
+          <li>6 validated KPIs revealing 847 high-risk youth (38%) previously invisible to the Council</li>
+          <li>Full enterprise architecture (TOGAF ADM) deployed on GitHub Pages at zero cost</li>
+        </ul>
+      </div>
+      <div class="outcome-card">
+        <h4>What We Learned</h4>
+        <ul>
+          <li>Data-driven policy requires institutional infrastructure — not just analytical capability</li>
+          <li>Synthetic dataset design is a rigorous research activity requiring careful benchmark calibration</li>
+          <li>AI dependency is not just behavioral — it is a clinical health concern requiring multi-domain response</li>
+          <li>The gap between anecdotal Council knowledge and YAIDS quantitative findings was dramatic</li>
+          <li>Open-source tools (Python, MySQL, Flask, Chart.js) can fully replace proprietary BI platforms</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="next-steps">
+      <h4>Next Steps</h4>
+      <div class="steps-list">
+        <div class="step-pill"><div class="step-num">1</div>Deploy Community Wellness Portal as live survey in 3 pilot schools</div>
+        <div class="step-pill"><div class="step-num">2</div>Submit data protocol for IRB approval and parental consent framework</div>
+        <div class="step-pill"><div class="step-num">3</div>Engage APA and UNESCO for external peer review of Risk Score formula</div>
+        <div class="step-pill"><div class="step-num">4</div>Expand to all Eastbrook schools in Phase 3 with role-specific dashboards</div>
+        <div class="step-pill"><div class="step-num">5</div>Implement ML-based risk classification replacing static composite weights</div>
+        <div class="step-pill"><div class="step-num">6</div>Longitudinal validation of 12-week intervention projections with real data</div>
+      </div>
+    </div>
+
+    <div class="links-bar">
+      <a href="https://ravigoud100.github.io/aidashboard/" target="_blank" class="btn btn-primary">📊 Live Dashboard</a>
+      <a href="https://ravigoud100.github.io/MRP/" target="_blank" class="btn btn-outline">🔬 YAIDS Prototype</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <strong>YAIDS — Youth AI Impact & Intervention System</strong><br>
+  Team 12 · IS 5960 Master Research Project · Saint Louis University · Dr. Tatiana Cardona · Spring 2025<br>
+  Ravi Anumanthula · Koteswara Rao Manda · Pallavi Burugu · Niveditha Aitha · Snigdha Ailneni<br><br>
+  <a href="https://ravigoud100.github.io/aidashboard/" target="_blank" style="color:var(--gold)">Dashboard</a> &nbsp;·&nbsp;
+  <a href="https://ravigoud100.github.io/MRP/" target="_blank" style="color:var(--gold)">Prototype</a>
+</footer>
+
+<script>
+// Tab switching
+function showTab(id) {
+  document.querySelectorAll('.sol-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.sol-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// Smooth scroll for nav links
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+
+// Active nav highlighting
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 80) current = s.id;
+  });
+  navLinks.forEach(a => {
+    a.style.color = a.getAttribute('href') === '#' + current
+      ? '#fff' : 'rgba(255,255,255,0.72)';
+  });
+});
+
+// Animate bars on scroll
+const bars = document.querySelectorAll('.bar-before, .bar-after');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.width = e.target.style.width; // trigger CSS transition
+    }
+  });
+}, { threshold: 0.3 });
+bars.forEach(b => observer.observe(b));
+</script>
+</body>
+</html>
